@@ -10,6 +10,12 @@ export const RED: RgbColor = {
   b: 0,
 };
 
+export const GREEN: RgbColor = {
+  r: 0,
+  g: 255,
+  b: 0,
+};
+
 export const BLUE: RgbColor = {
   r: 0,
   g: 0,
