@@ -1,17 +1,17 @@
 export type RgbColor = {
-  red: number;
-  green: number;
-  blue: number;
+  r: number;
+  g: number;
+  b: number;
 };
 
 export const RED: RgbColor = {
-  red: 255,
-  green: 0,
-  blue: 0,
+  r: 255,
+  g: 0,
+  b: 0,
 };
 
 export const BLUE: RgbColor = {
-  red: 0,
-  green: 0,
-  blue: 255,
+  r: 0,
+  g: 0,
+  b: 255,
 };

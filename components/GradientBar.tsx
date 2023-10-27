@@ -28,9 +28,9 @@ const interpolateColorSimple = (
   t: number,
 ): RgbColor => {
   return {
-    red: (c2.red - c1.red) * t + c1.red,
-    green: (c2.green - c1.green) * t + c1.green,
-    blue: (c2.blue - c1.blue) * t + c1.blue,
+    r: (c2.r - c1.r) * t + c1.r,
+    g: (c2.g - c1.g) * t + c1.g,
+    b: (c2.b - c1.b) * t + c1.b,
   };
 };
 

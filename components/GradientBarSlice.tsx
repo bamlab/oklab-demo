@@ -9,7 +9,7 @@ export const GradientBarSlice = ({ color }: Props) => (
   <View
     style={[
       styles.container,
-      { backgroundColor: `rgb(${color.red}, ${color.green}, ${color.blue})` },
+      { backgroundColor: `rgb(${color.r}, ${color.g}, ${color.b})` },
     ]}
   ></View>
 );

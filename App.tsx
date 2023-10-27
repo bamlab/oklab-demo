@@ -1,6 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { GradientBar } from './components/GradientBar';
 import { GradientsShowcase } from './components/GradientsShowcase';
 
 export default function App() {
