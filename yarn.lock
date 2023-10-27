@@ -1163,6 +1163,11 @@
     "@babel/helper-validator-identifier" "^7.22.20"
     to-fast-properties "^2.0.0"
 
+"@bam.tech/teinte@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@bam.tech/teinte/-/teinte-1.2.1.tgz#c3885c2a7bb2142e48aff7bebe3ea76dd565b717"
+  integrity sha512-rZ44BCePEBN7GtQPM//Ies5ig0x7qvVs40XEjLE9VrzPvGHkY8oevZMGf0eAOfRrr70C5MV4jApfRFQoup00uA==
+
 "@expo/bunyan@4.0.0", "@expo/bunyan@^4.0.0":
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/@expo/bunyan/-/bunyan-4.0.0.tgz#be0c1de943c7987a9fbd309ea0b1acd605890c7b"
