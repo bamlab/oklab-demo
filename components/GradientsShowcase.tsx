@@ -11,9 +11,15 @@ type Props = {
 export const GradientsShowcase = ({ c1, c2 }: Props) => (
   <View style={styles.container}>
     {colorSpaces.map((colorSpace) => (
-      <View style={styles.barWrapper}>
+      <View style={styles.barWrapper} key={colorSpace}>
         <Text>{colorSpace}</Text>
-        <GradientBar c1={c1} c2={c2} colorSpace={colorSpace} key={colorSpace} />
+        <GradientBar
+          c1={c1}
+          c2={c2}
+          colorSpace={colorSpace}
+          key={colorSpace}
+          gamutMappingStrategy="gray"
+        />
       </View>
     ))}
   </View>
