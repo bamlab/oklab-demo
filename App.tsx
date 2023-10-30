@@ -1,19 +1,45 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { GradientsShowcase } from './components/GradientsShowcase';
-import { BLUE, GREEN, RED } from './domain/RgbColor';
+import { GradientShowcase } from './components/GradientShowcase';
+import { BLUE, RED } from './domain/RgbColor';
+import { AddGradientBarButton } from './components/AddGradientBarButton';
+import { useState } from 'react';
+import { GradientParams } from './domain/GradientParams';
 
 export default function App() {
+  const [gradientParamsList, setGradientParamsList] = useState<
+    GradientParams[]
+  >([
+    {
+      c1: RED,
+      c2: BLUE,
+      colorSpace: 'oklab',
+      gamutMappingStrategy: 'adaptativeL05-005',
+    },
+  ]);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
-      <ScrollView>
-        <Text style={styles.title}>Red to blue</Text>
-        <GradientsShowcase c1={RED} c2={BLUE} />
-        <Text style={styles.title}>Green to blue</Text>
-        <GradientsShowcase c1={GREEN} c2={BLUE} />
-        <Text style={styles.title}>Red to green</Text>
-        <GradientsShowcase c1={RED} c2={GREEN} />
+      <View style={styles.header}>
+        <AddGradientBarButton
+          onPress={() => {
+            setGradientParamsList((currentList) => [
+              ...currentList,
+              {
+                c1: RED,
+                c2: BLUE,
+                colorSpace: 'oklab',
+                gamutMappingStrategy: 'adaptativeL05-005',
+              },
+            ]);
+          }}
+        />
+      </View>
+      <ScrollView contentContainerStyle={styles.scrollView}>
+        {gradientParamsList.map((gradientParams, index) => (
+          <GradientShowcase gradientParams={gradientParams} key={index} />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );
@@ -23,10 +49,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  title: {
-    paddingTop: 16,
-    paddingHorizontal: 16,
-    fontWeight: '700',
-    fontSize: 18,
+  header: {
+    alignItems: 'center',
+  },
+  scrollView: {
+    padding: 16,
+    gap: 16,
   },
 });
