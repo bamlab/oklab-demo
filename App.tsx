@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { GradientShowcase } from './components/GradientShowcase';
-import { BLUE, RED } from './domain/RgbColor';
+import { BLUE, GREEN, RED } from './domain/RgbColor';
 import { AddGradientBarButton } from './components/AddGradientBarButton';
 import { useState } from 'react';
 import { GradientParams } from './domain/GradientParams';
@@ -28,7 +28,7 @@ export default function App() {
               ...currentList,
               {
                 c1: RED,
-                c2: BLUE,
+                c2: GREEN,
                 colorSpace: 'oklab',
                 gamutMappingStrategy: 'adaptativeL05-005',
               },
@@ -38,7 +38,17 @@ export default function App() {
       </View>
       <ScrollView contentContainerStyle={styles.scrollView}>
         {gradientParamsList.map((gradientParams, index) => (
-          <GradientShowcase gradientParams={gradientParams} key={index} />
+          <GradientShowcase
+            gradientParams={gradientParams}
+            onRemovePress={() => {
+              setGradientParamsList((currentList) => {
+                const newList = currentList.slice();
+                newList.splice(index, 1);
+                return newList;
+              });
+            }}
+            key={index}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>
