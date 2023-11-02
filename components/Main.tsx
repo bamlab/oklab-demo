@@ -1,32 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 import {
-  Button,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import {
-  ColorPicker,
-  TriangleColorPicker,
-  fromHsv,
-} from 'react-native-color-picker';
-import {
-  SafeAreaProvider,
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
-import { GradientParams } from '../domain/GradientParams';
-import { RED, BLUE, GREEN, RgbColor } from '../domain/RgbColor';
-import { AddGradientBarButton } from './AddGradientBarButton';
-import { GradientShowcase } from './GradientShowcase';
 import { ColorSpace, colorSpaces } from '../domain/ColorSpace';
 import {
   GamutMappingStrategy,
   gamutMappingStrategies,
 } from '../domain/GamutMappingStrategy';
+import { GradientParams } from '../domain/GradientParams';
+import { BLUE, RED, RgbColor } from '../domain/RgbColor';
+import { AddGradientBarButton } from './AddGradientBarButton';
+import { GradientShowcase } from './GradientShowcase';
+import { Picker } from './Picker';
 
 export const Main = () => {
   const { top } = useSafeAreaInsets();
@@ -66,46 +55,16 @@ export const Main = () => {
             style={{ flex: 1, aspectRatio: 1 }}
           />
         </View>
-        <ScrollView
-          horizontal
-          contentContainerStyle={styles.pickerScrollView}
-          showsHorizontalScrollIndicator={false}
-        >
-          {colorSpaces.map((space) => (
-            <TouchableOpacity
-              style={
-                space === colorSpace ? styles.selectedChip : styles.defaultChip
-              }
-              onPress={() => {
-                setColorSpace(space);
-              }}
-              key={space}
-            >
-              <Text style={styles.chipLabel}>{space}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
-        <ScrollView
-          horizontal
-          contentContainerStyle={styles.pickerScrollView}
-          showsHorizontalScrollIndicator={false}
-        >
-          {gamutMappingStrategies.map((strategy) => (
-            <TouchableOpacity
-              style={
-                strategy === gamutMappingStrategy
-                  ? styles.selectedChip
-                  : styles.defaultChip
-              }
-              onPress={() => {
-                setGamutMappingStrategy(strategy);
-              }}
-              key={strategy}
-            >
-              <Text style={styles.chipLabel}>{strategy}</Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+        <Picker
+          items={colorSpaces}
+          selectedItem={colorSpace}
+          onItemSelected={setColorSpace}
+        />
+        <Picker
+          items={gamutMappingStrategies}
+          selectedItem={gamutMappingStrategy}
+          onItemSelected={setGamutMappingStrategy}
+        />
         <AddGradientBarButton
           onPress={() => {
             setGradientParamsList((currentList) => [
@@ -172,22 +131,5 @@ const styles = StyleSheet.create({
   scrollView: {
     padding: 16,
     gap: 16,
-  },
-  selectedChip: {
-    backgroundColor: 'blue',
-    padding: 8,
-    borderRadius: 8,
-  },
-  defaultChip: {
-    backgroundColor: 'gray',
-    padding: 8,
-    borderRadius: 8,
-  },
-  chipLabel: {
-    color: 'white',
-  },
-  pickerScrollView: {
-    gap: 8,
-    paddingHorizontal: 16,
   },
 });
