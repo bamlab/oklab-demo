@@ -1,4 +1,5 @@
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { colors } from '../colors';
 
 type Props = {
   onPress: () => void;
@@ -12,14 +13,14 @@ export const AddGradientBarButton = ({ onPress }: Props) => (
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 32,
-    paddingVertical: 16,
+    alignSelf: 'center',
+    paddingHorizontal: 20,
+    paddingVertical: 14,
     borderRadius: 12,
-    backgroundColor: 'blue',
+    backgroundColor: colors.addButtonBackgroundColor,
   },
   label: {
-    color: 'white',
-    fontSize: 16,
+    color: colors.addButtonLabelColor,
     fontWeight: '600',
   },
 });

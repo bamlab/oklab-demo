@@ -1,10 +1,7 @@
-import { View, StyleSheet } from 'react-native';
-import { RgbColor } from '../domain/RgbColor';
-import { GradientBarSlice } from './GradientBarSlice';
-import { ColorSpace } from '../domain/ColorSpace';
 import { interpolateColor } from '@bam.tech/teinte';
-import { GamutMappingStrategy } from '../domain/GamutMappingStrategy';
+import { StyleSheet, View } from 'react-native';
 import { GradientParams } from '../domain/GradientParams';
+import { GradientBarSlice } from './GradientBarSlice';
 
 type Props = {
   gradientParams: GradientParams;

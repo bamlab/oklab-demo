@@ -1,8 +1,7 @@
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { GradientBar } from './GradientBar';
-import { BLUE, RED, RgbColor } from '../domain/RgbColor';
-import { colorSpaces } from '../domain/ColorSpace';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { colors } from '../colors';
 import { GradientParams } from '../domain/GradientParams';
+import { GradientBar } from './GradientBar';
 
 type Props = {
   gradientParams: GradientParams;
@@ -35,9 +34,10 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 16,
     borderRadius: 12,
-    backgroundColor: 'darkred',
+    backgroundColor: colors.removeButtonBackgroundColor,
   },
   removeButtonLabel: {
-    color: 'white',
+    color: colors.removeButtonLabelColor,
+    fontWeight: '600',
   },
 });

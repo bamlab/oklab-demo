@@ -1,4 +1,5 @@
-import { ScrollView, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { ScrollView, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { colors } from '../colors';
 
 type Props<T extends string> = {
   items: readonly T[];
@@ -24,7 +25,15 @@ export const Picker = <T extends string>({
         }}
         key={item}
       >
-        <Text style={styles.chipLabel}>{item}</Text>
+        <Text
+          style={
+            item === selectedItem
+              ? styles.selectedChipLabel
+              : styles.defaultChipLabel
+          }
+        >
+          {item}
+        </Text>
       </TouchableOpacity>
     ))}
   </ScrollView>
@@ -36,16 +45,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   selectedChip: {
-    backgroundColor: 'blue',
+    backgroundColor: colors.selectedChipBackgroundColor,
     padding: 8,
     borderRadius: 8,
   },
   defaultChip: {
-    backgroundColor: 'gray',
+    backgroundColor: colors.defaultChipBackgroundColor,
     padding: 8,
     borderRadius: 8,
   },
-  chipLabel: {
-    color: 'white',
+  selectedChipLabel: {
+    color: colors.selectedChipLabelColor,
+  },
+  defaultChipLabel: {
+    color: colors.defaultChipLabelColor,
   },
 });

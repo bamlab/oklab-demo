@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { colors } from '../colors';
 import { ColorSpace, colorSpaces } from '../domain/ColorSpace';
 import {
   GamutMappingStrategy,
@@ -48,16 +49,18 @@ export const Main = () => {
           />
           <ColorPicker selectedColor={endColor} onColorSelected={setEndColor} />
         </View>
-        <Picker
-          items={colorSpaces}
-          selectedItem={colorSpace}
-          onItemSelected={setColorSpace}
-        />
-        <Picker
-          items={gamutMappingStrategies}
-          selectedItem={gamutMappingStrategy}
-          onItemSelected={setGamutMappingStrategy}
-        />
+        <View style={styles.pickersWrapper}>
+          <Picker
+            items={colorSpaces}
+            selectedItem={colorSpace}
+            onItemSelected={setColorSpace}
+          />
+          <Picker
+            items={gamutMappingStrategies}
+            selectedItem={gamutMappingStrategy}
+            onItemSelected={setGamutMappingStrategy}
+          />
+        </View>
         <AddGradientBarButton
           onPress={() => {
             setGradientParamsList((currentList) => [
@@ -83,16 +86,20 @@ export const Main = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.backgroundColor,
   },
   header: {
-    alignItems: 'center',
-    backgroundColor: 'lightblue',
+    backgroundColor: colors.headerBackgroundColor,
     paddingVertical: 16,
     gap: 12,
   },
   colorPickersWrapper: {
     flexDirection: 'row',
     paddingHorizontal: 16,
+    gap: 8,
+  },
+  pickersWrapper: {
+    paddingVertical: 8,
     gap: 8,
   },
 });
