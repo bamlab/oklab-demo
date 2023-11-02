@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -14,7 +14,7 @@ import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
 import { AddGradientBarButton } from './AddGradientBarButton';
 import { ColorPicker } from './ColorPicker';
-import { GradientShowcase } from './GradientShowcase';
+import { GradientScrollView } from './GradientScrollView';
 import { Picker } from './Picker';
 
 export const Main = () => {
@@ -38,7 +38,7 @@ export const Main = () => {
   console.log({ startColor, endColor, colorSpace, gamutMappingStrategy });
 
   return (
-    <SafeAreaView style={styles.container} edges={['bottom']}>
+    <SafeAreaView style={styles.container} edges={[]}>
       <StatusBar style="auto" />
       <View style={[styles.header, { paddingTop: top }]}>
         <View style={styles.colorPickersWrapper}>
@@ -72,21 +72,10 @@ export const Main = () => {
           }}
         />
       </View>
-      <ScrollView contentContainerStyle={styles.scrollView}>
-        {gradientParamsList.map((gradientParams, index) => (
-          <GradientShowcase
-            gradientParams={gradientParams}
-            onRemovePress={() => {
-              setGradientParamsList((currentList) => {
-                const newList = currentList.slice();
-                newList.splice(index, 1);
-                return newList;
-              });
-            }}
-            key={index}
-          />
-        ))}
-      </ScrollView>
+      <GradientScrollView
+        gradientParamsList={gradientParamsList}
+        setGradientParamsList={setGradientParamsList}
+      />
     </SafeAreaView>
   );
 };
@@ -105,9 +94,5 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 16,
     gap: 8,
-  },
-  scrollView: {
-    padding: 16,
-    gap: 16,
   },
 });
