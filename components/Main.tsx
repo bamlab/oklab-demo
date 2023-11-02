@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { TriangleColorPicker, fromHsv } from 'react-native-color-picker';
 import {
   SafeAreaView,
   useSafeAreaInsets,
@@ -14,6 +13,7 @@ import {
 import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
 import { AddGradientBarButton } from './AddGradientBarButton';
+import { ColorPicker } from './ColorPicker';
 import { GradientShowcase } from './GradientShowcase';
 import { Picker } from './Picker';
 
@@ -35,25 +35,18 @@ export const Main = () => {
   const [gamutMappingStrategy, setGamutMappingStrategy] =
     useState<GamutMappingStrategy>('clamp');
 
+  console.log({ startColor, endColor, colorSpace, gamutMappingStrategy });
+
   return (
     <SafeAreaView style={styles.container} edges={['bottom']}>
       <StatusBar style="auto" />
       <View style={[styles.header, { paddingTop: top }]}>
         <View style={styles.colorPickersWrapper}>
-          <TriangleColorPicker
-            onColorChange={(color) =>
-              setStartColor(fromHexString(fromHsv(color)))
-            }
-            defaultColor={toRgbString(startColor)}
-            style={{ flex: 1, aspectRatio: 1 }}
+          <ColorPicker
+            selectedColor={startColor}
+            onColorSelected={setStartColor}
           />
-          <TriangleColorPicker
-            onColorChange={(color) =>
-              setEndColor(fromHexString(fromHsv(color)))
-            }
-            defaultColor={toRgbString(endColor)}
-            style={{ flex: 1, aspectRatio: 1 }}
-          />
+          <ColorPicker selectedColor={endColor} onColorSelected={setEndColor} />
         </View>
         <Picker
           items={colorSpaces}
@@ -96,21 +89,6 @@ export const Main = () => {
       </ScrollView>
     </SafeAreaView>
   );
-};
-
-const toRgbString = (color: RgbColor) =>
-  `rgb(${color.r},${color.g},${color.b})`;
-
-const fromHexString = (hexString: string): RgbColor => {
-  let hex = hexString.replace(/^#/, '');
-
-  // Parse the r, g, b values
-  let bigint = parseInt(hex, 16);
-  let r = (bigint >> 16) & 255;
-  let g = (bigint >> 8) & 255;
-  let b = bigint & 255;
-
-  return { r, g, b };
 };
 
 const styles = StyleSheet.create({
