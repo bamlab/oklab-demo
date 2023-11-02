@@ -1,4 +1,4 @@
-const gamutMappingStrategies = [
+export const gamutMappingStrategies = [
   'clamp',
   'gray',
   'preserveChroma',
