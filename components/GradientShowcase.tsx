@@ -1,14 +1,22 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../colors';
 import { GradientParams } from '../domain/GradientParams';
+import { RgbColor } from '../domain/RgbColor';
 import { GradientBar } from './GradientBar';
 
 type Props = {
+  c1: RgbColor;
+  c2: RgbColor;
   gradientParams: GradientParams;
   onRemovePress: () => void;
 };
 
-export const GradientShowcase = ({ gradientParams, onRemovePress }: Props) => (
+export const GradientShowcase = ({
+  c1,
+  c2,
+  gradientParams,
+  onRemovePress,
+}: Props) => (
   <View style={styles.container}>
     <View style={styles.header}>
       <Text>{`${gradientParams.colorSpace} - ${gradientParams.gamutMappingStrategy}`}</Text>
@@ -16,7 +24,7 @@ export const GradientShowcase = ({ gradientParams, onRemovePress }: Props) => (
         <Text style={styles.removeButtonLabel}>Remove</Text>
       </TouchableOpacity>
     </View>
-    <GradientBar gradientParams={gradientParams} />
+    <GradientBar c1={c1} c2={c2} gradientParams={gradientParams} />
   </View>
 );
 

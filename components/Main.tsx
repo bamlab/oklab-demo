@@ -24,8 +24,6 @@ export const Main = () => {
     GradientParams[]
   >([
     {
-      c1: RED,
-      c2: BLUE,
       colorSpace: 'oklab',
       gamutMappingStrategy: 'adaptativeL05-005',
     },
@@ -64,8 +62,6 @@ export const Main = () => {
             setGradientParamsList((currentList) => [
               ...currentList,
               {
-                c1: startColor,
-                c2: endColor,
                 colorSpace,
                 gamutMappingStrategy,
               },
@@ -74,6 +70,8 @@ export const Main = () => {
         />
       </View>
       <GradientScrollView
+        c1={startColor}
+        c2={endColor}
         gradientParamsList={gradientParamsList}
         setGradientParamsList={setGradientParamsList}
       />

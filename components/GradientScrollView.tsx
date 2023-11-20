@@ -1,9 +1,12 @@
 import { ScrollView, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { GradientParams } from '../domain/GradientParams';
+import { RgbColor } from '../domain/RgbColor';
 import { GradientShowcase } from './GradientShowcase';
 
 type Props = {
+  c1: RgbColor;
+  c2: RgbColor;
   gradientParamsList: GradientParams[];
   setGradientParamsList: (
     set: (currentList: GradientParams[]) => GradientParams[],
@@ -11,6 +14,8 @@ type Props = {
 };
 
 export const GradientScrollView = ({
+  c1,
+  c2,
   gradientParamsList,
   setGradientParamsList,
 }: Props) => {
@@ -24,6 +29,8 @@ export const GradientScrollView = ({
     >
       {gradientParamsList.map((gradientParams, index) => (
         <GradientShowcase
+          c1={c1}
+          c2={c2}
           gradientParams={gradientParams}
           onRemovePress={() => {
             setGradientParamsList((currentList) => {
