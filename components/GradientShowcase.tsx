@@ -1,5 +1,6 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors } from '../colors';
+import { ColorSpace } from '../domain/ColorSpace';
 import { GradientParams } from '../domain/GradientParams';
 import { RgbColor } from '../domain/RgbColor';
 import { GradientBar } from './GradientBar';
@@ -19,7 +20,12 @@ export const GradientShowcase = ({
 }: Props) => (
   <View style={styles.container}>
     <View style={styles.header}>
-      <Text>{`${gradientParams.colorSpace} - ${gradientParams.gamutMappingStrategy}`}</Text>
+      <Text>
+        {`${gradientParams.colorSpace}`}
+        {shouldShowGamutMappingMethod(gradientParams.colorSpace) ? (
+          <Text>{` - ${gradientParams.gamutMappingStrategy}`}</Text>
+        ) : null}
+      </Text>
       <TouchableOpacity onPress={onRemovePress} style={styles.removeButton}>
         <Text style={styles.removeButtonLabel}>Remove</Text>
       </TouchableOpacity>
@@ -27,6 +33,9 @@ export const GradientShowcase = ({
     <GradientBar c1={c1} c2={c2} gradientParams={gradientParams} />
   </View>
 );
+
+const shouldShowGamutMappingMethod = (colorSpace: ColorSpace) =>
+  colorSpace === 'oklab' || colorSpace === 'oklch';
 
 const styles = StyleSheet.create({
   container: {
