@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: colors.headerBackgroundColor,
     paddingVertical: 16,
-    gap: 12,
+    gap: 8,
   },
   colorPickersWrapper: {
     flexDirection: 'row',
