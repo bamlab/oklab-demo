@@ -54,6 +54,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     flex: 1,
+    aspectRatio: 1,
   },
   label: {
     color: colors.colorLabelColor,
