@@ -36,8 +36,6 @@ export const Main = () => {
   const [gamutMappingStrategy, setGamutMappingStrategy] =
     useState<GamutMappingStrategy>('clamp');
 
-  console.log({ startColor, endColor, colorSpace, gamutMappingStrategy });
-
   return (
     <SafeAreaView style={styles.container} edges={[]}>
       <StatusBar style="auto" />
