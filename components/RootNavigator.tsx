@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { ColorPickerPage } from '../pages/ColorPickerPage';
 import { MainPage } from '../pages/MainPage';
 
-type RootStackParamList = {
+export type RootStackParamList = {
   Main: undefined;
   ColorPicker: undefined;
 };

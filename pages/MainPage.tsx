@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { colors } from '../colors';
 import { AddGradientBarButton } from '../components/AddGradientBarButton';
-import { ColorPicker } from '../components/ColorPicker';
 import { GradientScrollView } from '../components/GradientScrollView';
+import { PickColorButton } from '../components/PickColorButton';
 import { Picker } from '../components/Picker';
 import { ColorSpace, colorSpaces } from '../domain/ColorSpace';
 import {
@@ -17,6 +17,7 @@ import {
 } from '../domain/GamutMappingStrategy';
 import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
+import { toHexString } from '../utils/colorConversions';
 
 export const MainPage = () => {
   const { top } = useSafeAreaInsets();
@@ -39,11 +40,14 @@ export const MainPage = () => {
       <StatusBar style="auto" />
       <View style={[styles.header, { paddingTop: top }]}>
         <View style={styles.colorPickersWrapper}>
-          <ColorPicker
-            selectedColor={startColor}
-            onColorSelected={setStartColor}
-          />
-          <ColorPicker selectedColor={endColor} onColorSelected={setEndColor} />
+          <View style={styles.colorPickerWrapper}>
+            <PickColorButton color={startColor} />
+            <Text style={styles.colorLabel}>{toHexString(startColor)}</Text>
+          </View>
+          <View style={styles.colorPickerWrapper}>
+            <PickColorButton color={endColor} />
+            <Text style={styles.colorLabel}>{toHexString(endColor)}</Text>
+          </View>
         </View>
         <View style={styles.pickersWrapper}>
           <Picker
@@ -93,6 +97,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 16,
     gap: 8,
+  },
+  colorPickerWrapper: {
+    flex: 1,
+    gap: 4,
+  },
+  colorLabel: {
+    color: colors.colorLabelColor,
+    fontWeight: '500',
+    textAlign: 'center',
   },
   pickersWrapper: {
     paddingVertical: 8,
