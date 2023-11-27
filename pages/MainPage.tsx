@@ -1,5 +1,6 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import {
   SafeAreaView,
@@ -10,6 +11,7 @@ import { AddGradientBarButton } from '../components/AddGradientBarButton';
 import { GradientScrollView } from '../components/GradientScrollView';
 import { PickColorButton } from '../components/PickColorButton';
 import { Picker } from '../components/Picker';
+import { RootStackParamList } from '../components/RootNavigator';
 import { ColorSpace, colorSpaces } from '../domain/ColorSpace';
 import {
   GamutMappingStrategy,
@@ -19,7 +21,15 @@ import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
 import { toHexString } from '../utils/colorConversions';
 
+export type MainPageParams = {
+  startColor?: RgbColor;
+  endColor?: RgbColor;
+};
+
+export type ColorUse = 'start' | 'end';
+
 export const MainPage = () => {
+  const { params } = useRoute<RouteProp<RootStackParamList, 'Main'>>();
   const { top } = useSafeAreaInsets();
   const [gradientParamsList, setGradientParamsList] = useState<
     GradientParams[]
@@ -35,17 +45,29 @@ export const MainPage = () => {
   const [gamutMappingStrategy, setGamutMappingStrategy] =
     useState<GamutMappingStrategy>('clamp');
 
+  useEffect(() => {
+    if (!params) {
+      return;
+    }
+    if (params.startColor) {
+      setStartColor(params.startColor);
+    }
+    if (params.endColor) {
+      setEndColor(params.endColor);
+    }
+  }, [params]);
+
   return (
     <SafeAreaView style={styles.container} edges={[]}>
       <StatusBar style="auto" />
       <View style={[styles.header, { paddingTop: top }]}>
         <View style={styles.colorPickersWrapper}>
           <View style={styles.colorPickerWrapper}>
-            <PickColorButton color={startColor} />
+            <PickColorButton color={startColor} use="start" />
             <Text style={styles.colorLabel}>{toHexString(startColor)}</Text>
           </View>
           <View style={styles.colorPickerWrapper}>
-            <PickColorButton color={endColor} />
+            <PickColorButton color={endColor} use="end" />
             <Text style={styles.colorLabel}>{toHexString(endColor)}</Text>
           </View>
         </View>

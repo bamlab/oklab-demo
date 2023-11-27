@@ -3,10 +3,10 @@ import {
   ColorPickerPage,
   ColorPickerPageParams,
 } from '../pages/ColorPickerPage';
-import { MainPage } from '../pages/MainPage';
+import { MainPage, MainPageParams } from '../pages/MainPage';
 
 export type RootStackParamList = {
-  Main: undefined;
+  Main: MainPageParams;
   ColorPicker: ColorPickerPageParams;
 };
 

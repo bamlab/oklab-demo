@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    gap: 4,
+    gap: 8,
   },
   picker: {
     flex: 1,
