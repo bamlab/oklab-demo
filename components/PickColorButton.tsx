@@ -15,7 +15,7 @@ export const PickColorButton = ({ color }: Props) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigate('ColorPicker');
+        navigate('ColorPicker', { initialColor: color });
       }}
       style={[styles.container, { backgroundColor: toHexString(color) }]}
     >

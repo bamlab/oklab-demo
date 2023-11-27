@@ -1,10 +1,13 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { ColorPickerPage } from '../pages/ColorPickerPage';
+import {
+  ColorPickerPage,
+  ColorPickerPageParams,
+} from '../pages/ColorPickerPage';
 import { MainPage } from '../pages/MainPage';
 
 export type RootStackParamList = {
   Main: undefined;
-  ColorPicker: undefined;
+  ColorPicker: ColorPickerPageParams;
 };
 
 const RootStack = createNativeStackNavigator<RootStackParamList>();

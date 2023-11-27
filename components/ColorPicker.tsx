@@ -26,7 +26,7 @@ export const ColorPicker = ({ selectedColor, onColorSelected }: Props) => (
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    width: '100%',
     aspectRatio: 1,
     flexDirection: 'column',
     alignItems: 'center',
