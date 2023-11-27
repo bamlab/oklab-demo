@@ -1,11 +1,18 @@
+import { RouteProp, useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { colors } from '../colors';
+import { AddGradientBarButton } from '../components/AddGradientBarButton';
+import { ColorTextInput } from '../components/ColorTextInput';
+import { GradientScrollView } from '../components/GradientScrollView';
+import { PickColorButton } from '../components/PickColorButton';
+import { Picker } from '../components/Picker';
+import { RootStackParamList } from '../components/RootNavigator';
 import { ColorSpace, colorSpaces } from '../domain/ColorSpace';
 import {
   GamutMappingStrategy,
@@ -13,12 +20,16 @@ import {
 } from '../domain/GamutMappingStrategy';
 import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
-import { AddGradientBarButton } from './AddGradientBarButton';
-import { ColorPicker } from './ColorPicker';
-import { GradientScrollView } from './GradientScrollView';
-import { Picker } from './Picker';
 
-export const Main = () => {
+export type MainPageParams = {
+  startColor?: RgbColor;
+  endColor?: RgbColor;
+};
+
+export type ColorUse = 'start' | 'end';
+
+export const MainPage = () => {
+  const { params } = useRoute<RouteProp<RootStackParamList, 'Main'>>();
   const { top } = useSafeAreaInsets();
   const [gradientParamsList, setGradientParamsList] = useState<
     GradientParams[]
@@ -34,16 +45,31 @@ export const Main = () => {
   const [gamutMappingStrategy, setGamutMappingStrategy] =
     useState<GamutMappingStrategy>('clamp');
 
+  useEffect(() => {
+    if (!params) {
+      return;
+    }
+    if (params.startColor) {
+      setStartColor(params.startColor);
+    }
+    if (params.endColor) {
+      setEndColor(params.endColor);
+    }
+  }, [params]);
+
   return (
     <SafeAreaView style={styles.container} edges={[]}>
       <StatusBar style="auto" />
       <View style={[styles.header, { paddingTop: top }]}>
         <View style={styles.colorPickersWrapper}>
-          <ColorPicker
-            selectedColor={startColor}
-            onColorSelected={setStartColor}
-          />
-          <ColorPicker selectedColor={endColor} onColorSelected={setEndColor} />
+          <View style={styles.colorPickerWrapper}>
+            <PickColorButton color={startColor} use="start" />
+            <ColorTextInput color={startColor} setColor={setStartColor} />
+          </View>
+          <View style={styles.colorPickerWrapper}>
+            <PickColorButton color={endColor} use="end" />
+            <ColorTextInput color={endColor} setColor={setEndColor} />
+          </View>
         </View>
         <View style={styles.pickersWrapper}>
           <Picker
@@ -87,12 +113,21 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: colors.headerBackgroundColor,
     paddingVertical: 16,
-    gap: 8,
+    gap: 12,
   },
   colorPickersWrapper: {
     flexDirection: 'row',
     paddingHorizontal: 16,
     gap: 8,
+  },
+  colorPickerWrapper: {
+    flex: 1,
+    gap: 8,
+  },
+  colorLabel: {
+    color: colors.colorLabelColor,
+    fontWeight: '500',
+    textAlign: 'center',
   },
   pickersWrapper: {
     paddingVertical: 8,

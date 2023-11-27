@@ -13,7 +13,7 @@ export const AddGradientBarButton = ({ onPress }: Props) => (
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'center',
+    marginHorizontal: 16,
     paddingHorizontal: 20,
     paddingVertical: 14,
     borderRadius: 12,
@@ -22,5 +22,6 @@ const styles = StyleSheet.create({
   label: {
     color: colors.addButtonLabelColor,
     fontWeight: '600',
+    textAlign: 'center',
   },
 });
