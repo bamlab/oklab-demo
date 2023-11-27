@@ -6,6 +6,10 @@ import {
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { colors } from '../colors';
+import { AddGradientBarButton } from '../components/AddGradientBarButton';
+import { ColorPicker } from '../components/ColorPicker';
+import { GradientScrollView } from '../components/GradientScrollView';
+import { Picker } from '../components/Picker';
 import { ColorSpace, colorSpaces } from '../domain/ColorSpace';
 import {
   GamutMappingStrategy,
@@ -13,12 +17,8 @@ import {
 } from '../domain/GamutMappingStrategy';
 import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
-import { AddGradientBarButton } from './AddGradientBarButton';
-import { ColorPicker } from './ColorPicker';
-import { GradientScrollView } from './GradientScrollView';
-import { Picker } from './Picker';
 
-export const Main = () => {
+export const MainPage = () => {
   const { top } = useSafeAreaInsets();
   const [gradientParamsList, setGradientParamsList] = useState<
     GradientParams[]
