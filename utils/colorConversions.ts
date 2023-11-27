@@ -16,6 +16,14 @@ export const toHexString = (rgbColor: RgbColor) => {
 export const fromHexString = (hexString: string): RgbColor => {
   let hex = hexString.replace(/^#/, '');
 
+  // If the hex string is in 3-character format, convert it to 6-character format
+  if (hex.length === 3) {
+    hex = hex
+      .split('')
+      .map((char) => char + char)
+      .join('');
+  }
+
   // Parse the r, g, b values
   let bigint = parseInt(hex, 16);
   let r = (bigint >> 16) & 255;
@@ -24,3 +32,6 @@ export const fromHexString = (hexString: string): RgbColor => {
 
   return { r, g, b };
 };
+
+export const isValidHexColor = (text: string): boolean =>
+  /^#(?:[0-9a-fA-F]{3}){1,2}$/.test(text);

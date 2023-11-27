@@ -1,13 +1,14 @@
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import {
   SafeAreaView,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
 import { colors } from '../colors';
 import { AddGradientBarButton } from '../components/AddGradientBarButton';
+import { ColorTextInput } from '../components/ColorTextInput';
 import { GradientScrollView } from '../components/GradientScrollView';
 import { PickColorButton } from '../components/PickColorButton';
 import { Picker } from '../components/Picker';
@@ -19,7 +20,6 @@ import {
 } from '../domain/GamutMappingStrategy';
 import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
-import { toHexString } from '../utils/colorConversions';
 
 export type MainPageParams = {
   startColor?: RgbColor;
@@ -64,11 +64,11 @@ export const MainPage = () => {
         <View style={styles.colorPickersWrapper}>
           <View style={styles.colorPickerWrapper}>
             <PickColorButton color={startColor} use="start" />
-            <Text style={styles.colorLabel}>{toHexString(startColor)}</Text>
+            <ColorTextInput color={startColor} setColor={setStartColor} />
           </View>
           <View style={styles.colorPickerWrapper}>
             <PickColorButton color={endColor} use="end" />
-            <Text style={styles.colorLabel}>{toHexString(endColor)}</Text>
+            <ColorTextInput color={endColor} setColor={setEndColor} />
           </View>
         </View>
         <View style={styles.pickersWrapper}>
@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: colors.headerBackgroundColor,
     paddingVertical: 16,
-    gap: 8,
+    gap: 12,
   },
   colorPickersWrapper: {
     flexDirection: 'row',
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   colorPickerWrapper: {
     flex: 1,
-    gap: 4,
+    gap: 8,
   },
   colorLabel: {
     color: colors.colorLabelColor,
