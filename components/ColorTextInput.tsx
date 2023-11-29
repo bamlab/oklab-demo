@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -22,6 +22,10 @@ type Props = {
 export const ColorTextInput = ({ color, setColor }: Props) => {
   const [localColor, setLocalColor] = useState(toHexString(color));
   const isValid = isValidHexColor(localColor);
+
+  useEffect(() => {
+    setLocalColor(toHexString(color));
+  }, [color]);
 
   return (
     <View style={styles.container}>
