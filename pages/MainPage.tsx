@@ -8,6 +8,7 @@ import {
 } from 'react-native-safe-area-context';
 import { colors } from '../colors';
 import { AddGradientBarButton } from '../components/AddGradientBarButton';
+import { ColorPickerModal } from '../components/ColorPickerModal';
 import { ColorTextInput } from '../components/ColorTextInput';
 import { GradientScrollView } from '../components/GradientScrollView';
 import { PickColorButton } from '../components/PickColorButton';
@@ -28,6 +29,8 @@ export type MainPageParams = {
 
 export type ColorUse = 'start' | 'end';
 
+type ModalState = ColorUse | 'closed';
+
 export const MainPage = () => {
   const { params } = useRoute<RouteProp<RootStackParamList, 'Main'>>();
   const { top } = useSafeAreaInsets();
@@ -44,6 +47,7 @@ export const MainPage = () => {
   const [colorSpace, setColorSpace] = useState<ColorSpace>('rgb');
   const [gamutMappingStrategy, setGamutMappingStrategy] =
     useState<GamutMappingStrategy>('clamp');
+  const [modalState, setModalState] = useState<ModalState>('closed');
 
   useEffect(() => {
     if (!params) {
@@ -63,11 +67,21 @@ export const MainPage = () => {
       <View style={[styles.header, { paddingTop: top }]}>
         <View style={styles.colorPickersWrapper}>
           <View style={styles.colorPickerWrapper}>
-            <PickColorButton color={startColor} use="start" />
+            <PickColorButton
+              color={startColor}
+              onPress={() => {
+                setModalState('start');
+              }}
+            />
             <ColorTextInput color={startColor} setColor={setStartColor} />
           </View>
           <View style={styles.colorPickerWrapper}>
-            <PickColorButton color={endColor} use="end" />
+            <PickColorButton
+              color={endColor}
+              onPress={() => {
+                setModalState('end');
+              }}
+            />
             <ColorTextInput color={endColor} setColor={setEndColor} />
           </View>
         </View>
@@ -100,6 +114,22 @@ export const MainPage = () => {
         c2={endColor}
         gradientParamsList={gradientParamsList}
         setGradientParamsList={setGradientParamsList}
+      />
+      <ColorPickerModal
+        isVisible={modalState === 'start'}
+        initialColor={startColor}
+        onColorSelected={(color) => {
+          setStartColor(color);
+          setModalState('closed');
+        }}
+      />
+      <ColorPickerModal
+        isVisible={modalState === 'end'}
+        initialColor={endColor}
+        onColorSelected={(color) => {
+          setEndColor(color);
+          setModalState('closed');
+        }}
       />
     </SafeAreaView>
   );
