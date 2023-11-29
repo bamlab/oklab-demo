@@ -1,6 +1,5 @@
-import { RouteProp, useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import {
   SafeAreaView,
@@ -13,7 +12,6 @@ import { ColorTextInput } from '../components/ColorTextInput';
 import { GradientScrollView } from '../components/GradientScrollView';
 import { PickColorButton } from '../components/PickColorButton';
 import { Picker } from '../components/Picker';
-import { RootStackParamList } from '../components/RootNavigator';
 import { ColorSpace, colorSpaces } from '../domain/ColorSpace';
 import {
   GamutMappingStrategy,
@@ -22,17 +20,11 @@ import {
 import { GradientParams } from '../domain/GradientParams';
 import { BLUE, RED, RgbColor } from '../domain/RgbColor';
 
-export type MainPageParams = {
-  startColor?: RgbColor;
-  endColor?: RgbColor;
-};
-
 export type ColorUse = 'start' | 'end';
 
 type ModalState = ColorUse | 'closed';
 
 export const MainPage = () => {
-  const { params } = useRoute<RouteProp<RootStackParamList, 'Main'>>();
   const { top } = useSafeAreaInsets();
   const [gradientParamsList, setGradientParamsList] = useState<
     GradientParams[]
@@ -48,18 +40,6 @@ export const MainPage = () => {
   const [gamutMappingStrategy, setGamutMappingStrategy] =
     useState<GamutMappingStrategy>('clamp');
   const [modalState, setModalState] = useState<ModalState>('closed');
-
-  useEffect(() => {
-    if (!params) {
-      return;
-    }
-    if (params.startColor) {
-      setStartColor(params.startColor);
-    }
-    if (params.endColor) {
-      setEndColor(params.endColor);
-    }
-  }, [params]);
 
   return (
     <SafeAreaView style={styles.container} edges={[]}>
